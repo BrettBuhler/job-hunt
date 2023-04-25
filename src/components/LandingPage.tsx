@@ -30,17 +30,19 @@ const LandingPage: React.FC<LandingPageProps> = () => {
     const [password, setPassword] = useState('')
 
     return (
-        <div className='signup-card'>
-            <h1>Job Hunt</h1>
-            <p>Generate custom resumes based off your expereince and job descriptions</p>
-            <form onSubmit={handleEmailSignup}>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' autoComplete='username'></input>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' autoComplete='current-password'></input>
-                <input type="submit" value={'LogIn / Create'}></input>
-            </form>
-            <GoogleLoginButton onClick={handleGoogleLogin}/>
-            <FacebookLoginButton onClick={handleFacebookLogin}/>
-            <GithubLoginButton onClick={handleGithubLogin}/>
+        <div className="landingPage">
+            <div className='signup-card'>
+                <h1>Job Hunt</h1>
+                <p>Generate custom resumes based off your expereince and job descriptions</p>
+                <form onSubmit={handleEmailSignup}>
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' autoComplete='username'></input>
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' autoComplete='current-password'></input>
+                    <input type="submit" value={'LogIn / Create'}></input>
+                </form>
+                <GoogleLoginButton onClick={handleGoogleLogin}/>
+                <FacebookLoginButton onClick={handleFacebookLogin}/>
+                <GithubLoginButton onClick={handleGithubLogin}/>
+            </div>
         </div>
     )
 }

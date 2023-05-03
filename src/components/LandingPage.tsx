@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react'
 import {GoogleLoginButton, FacebookLoginButton, GithubLoginButton} from 'react-social-login-buttons'
 import {googleLogout, useGoogleLogin} from '@react-oauth/google'
 import axios from 'axios'
+import Popup from './Popup'
+import '../styles/popup.css'
 
 /**
  * A landing page component that allows users to log in or sign up using their email, 
@@ -21,36 +23,39 @@ interface LandingPageProps {
 }
 
 
-const handleFacebookLogin = () => {
-    console.log('facebook')
-}
-
-const handleGithubLogin = () => {
-    console.log('github')
-}
-
-
 const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName}) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [popup, setPopup] = useState<boolean>(false)
 
 
-    /**
-     * ToDo: Check database for user email, if it exists, check if passowrds match, if they do LOGIN, if they don't PASSWORD ERROR, if the email
-     * does not exist, take user to confiermantion screen + make account
-     * @param event Submit event
-     */
+  /**
+   * ToDo: Check database for user email, if it exists, check if passowrds match, if they do LOGIN, if they don't PASSWORD ERROR, if the email
+   * does not exist, take user to confiermantion screen + make account
+   * @param event Submit event
+   */
+
+    const handleFacebookLogin = () => {
+      console.log('facebook')
+      setPopup(true)
+    }
+  
+    const handleGithubLogin = () => {
+      console.log('github')
+      setPopup(true)
+    }
+
     const handleEmailSignup = (event: React.FormEvent) => {
-        event.preventDefault()
-        setUserName(email)
+      event.preventDefault()
+      setUserName(email)
     }
 
     const login = useGoogleLogin({
-        onSuccess: (codeResponse) => {
-            setUser(codeResponse)
-        },
-        onError: (error) => console.log('Login Failed:', error)
-      })
+      onSuccess: (codeResponse) => {
+        setUser(codeResponse)
+      },
+      onError: (error) => console.log('Login Failed:', error)
+    })
     
       const logOut = () => {
         googleLogout()
@@ -77,6 +82,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
 
     return (
         <div className="landingPage">
+          <Popup message='GitHub and Facebook logins are under construction, please sign up by email or through Google.' bool={popup} setPopup={setPopup}></Popup>
             <div className='signup-card'>
                 <h1>Job Hunt</h1>
                 <p>Generate custom resumes based off your expereince and job descriptions</p>

@@ -5,6 +5,7 @@ import axios from 'axios'
 import Popup from './Popup'
 import '../styles/popup.css'
 
+
 /**
  * A landing page component that allows users to log in or sign up using their email, 
  * Google, Facebook, or Github accounts. Once logged in, the user's profile information 
@@ -94,7 +95,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
                 <GoogleLoginButton onClick={() => login()}/>
                 <FacebookLoginButton onClick={handleFacebookLogin}/>
                 <GithubLoginButton onClick={handleGithubLogin}/>
-                <button onClick={()=>console.log((profile as any), userName)}></button>
+                <button onClick={()=>console.log((profile as any), userName, localStorage.getItem('token'))}></button>
                 {userName !== '' ? <button onClick={logOut}>LOG OUT</button> : <div></div>}
             </div>
         </div>

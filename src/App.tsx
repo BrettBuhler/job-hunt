@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import LandingPage from './components/LandingPage'
-import { googleLogout, useGoogleLogin } from '@react-oauth/google'
+import SignUp from './components/SignUp';
 import axios from 'axios'
 
 
@@ -20,8 +20,10 @@ const App = () => {
 }
 
   return (
-    <LandingPage setUserName={setUserName} user={user} setUser={setUser} profile={profile} setProfile = {setProfile} userName={userName}/>
+    <div>
+      <SignUp></SignUp>
+    </div>
   );
 }
-
+//<LandingPage setUserName={setUserName} user={user} setUser={setUser} profile={profile} setProfile = {setProfile} userName={userName}/>
 export default App;

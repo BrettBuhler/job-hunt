@@ -1,22 +1,42 @@
-import { useState } from "react"
+import { useState } from 'react'
 import Popup from './Popup'
 import '../styles/signup.css'
 import '../styles/popup.css'
+import handleSignUp from '../services/handleSignUp'
 
+const REACT_APP_BASE_URL: string = process.env.REACT_APP_BASE_URL || ''
 
-const SignUp = ({}) => {
+interface SignUpProps {
+    setUserName: (str:string) => void;
+    setUserToken: (str:string) => void;
+}
+const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
+    const [message, setMessage] = useState('')
     const [popup, setPopup] = useState<boolean>(false)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if(validateInputs(email, password, confirmPassword)){
             //submit
-            console.log('GOOD')
+            const response = handleSignUp(email, password)
+            .then((res) => {
+                if (res.data){
+                    localStorage.setItem('token', res.data)
+                    setUserName(email)
+                    setUserToken(res.data)
+                } else {
+                    setMessage(`A user with that email is already signed up. `)
+                    setPopup(true)
+                }
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
         } else {
-            console.log('BAD')
+            setMessage('Invalid Input. A valid email is required, and your password must be at least 8 characters long and contain one capital letter.')
             setPopup(true)
         }
     }
@@ -52,7 +72,7 @@ const SignUp = ({}) => {
 
     return (
         <div>
-            <Popup setPopup={setPopup} bool={popup} message="Invalid Input. A valid email is required, and your password must be at least 8 characters long and contain one capital letter."></Popup>
+            <Popup setPopup={setPopup} bool={popup} message={message}></Popup>
         <div className="sign-up">
             <h1>Job-Hunt</h1>
             <br/>

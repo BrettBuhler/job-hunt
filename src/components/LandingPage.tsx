@@ -4,6 +4,7 @@ import {googleLogout, useGoogleLogin} from '@react-oauth/google'
 import axios from 'axios'
 import Popup from './Popup'
 import '../styles/popup.css'
+import generateToken from '../services/generateToken'
 
 
 /**
@@ -15,16 +16,17 @@ import '../styles/popup.css'
  * TODO: Implement facebook and Github login
  */
 interface LandingPageProps {
-    userName: string,
-    setUserName: (name: string) => void,
+    userName: string
+    setUserName: (name: string) => void
     user: object,
-    setUser: (aUser: object) => void,
-    profile: object,
+    setUser: (aUser: object) => void
+    profile: object
     setProfile: (aProfile: object) => void
+    setUserToken: (str: string) => void
 }
 
 
-const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName}) => {
+const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName, setUserToken}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [popup, setPopup] = useState<boolean>(false)
@@ -62,6 +64,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
         googleLogout()
         setProfile({})
         setUserName('')
+        setUserToken('')
       }
     
       useEffect(()=>{
@@ -75,6 +78,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
           .then((res:object) => {
             setProfile((res as any).data)
             setUserName((res as any).data.email)
+
+            async function fetchData(){
+              try {
+                const response = await generateToken((res as any).data.email)
+                console.log(response)
+                //set userToken
+                setUserToken(response.token)
+                localStorage.setItem('token', response.token)
+              } catch(error){
+                console.log(error)
+              }
+            }
+            //GENERATE TOKEN
+            fetchData()
           })
           .catch((err:object) => console.log(err))
         }

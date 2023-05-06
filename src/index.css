@@ -74,3 +74,9 @@ button:hover {
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+.back-button {
+  margin-top: 15px;
+  background-color: #de7b1e;
+}
+

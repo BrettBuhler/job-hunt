@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import LandingPage from './components/LandingPage'
 import SignUp from './components/SignUp';
 import verifyToken from './services/verifyToken';
@@ -11,6 +10,7 @@ const App = () => {
   const [userName, setUserName] = useState<string>('')
   const [user, setUser] = useState<object>({})
   const [profile, setProfile] = useState<object>({})
+  const [signUp, setSignUp] = useState<boolean>(false)
 
   useEffect(()=>{
     const token: any = localStorage.getItem('token')
@@ -34,9 +34,13 @@ const App = () => {
     return (
       <Dashboard setUserName={setUserName} setUserToken={setUserToken} setProfile={setProfile} setUser={setUser}></Dashboard>
     )
+  } else if (!signUp) {
+    return (
+      <LandingPage setUserName={setUserName} user={user} setUser={setUser} profile={profile} setProfile = {setProfile} userName={userName} setUserToken= {setUserToken} setSignUp={setSignUp}/>
+    )
   } else {
     return (
-      <LandingPage setUserName={setUserName} user={user} setUser={setUser} profile={profile} setProfile = {setProfile} userName={userName} setUserToken= {setUserToken}/>
+      <SignUp setUserName={setUserName} setUserToken={setUserToken} setSignUp={setSignUp}></SignUp>
     )
   }
 }

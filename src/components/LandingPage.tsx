@@ -4,6 +4,7 @@ import {googleLogout, useGoogleLogin} from '@react-oauth/google'
 import axios from 'axios'
 import Popup from './Popup'
 import '../styles/popup.css'
+import '../styles/signupa.css'
 import generateToken from '../services/generateToken'
 import handleSignUp from '../services/handleSignUp'
 import handleLogin from '../services/handleLogin'
@@ -25,14 +26,16 @@ interface LandingPageProps {
     profile: object
     setProfile: (aProfile: object) => void
     setUserToken: (str: string) => void
+    setSignUp: (bool: boolean) => void
 }
 
 
-const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName, setUserToken}) => {
+const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName, setUserToken, setSignUp}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [popup, setPopup] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
+
 
 
   /**
@@ -70,8 +73,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
       async function loginForm () {
         try {
           const response = await handleLogin(email, password)
-          console.log('Im here', response)
-          if (response.data.token){
+          if (response.data){
             setUserName(email)
             setUserToken(response.data.token)
             localStorage.setItem('token', response.data.token)
@@ -147,12 +149,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' autoComplete='current-password'></input>
                     <input type="submit" value={'LogIn'}></input>
                 </form>
+                <a onClick={()=>{setSignUp(true)}} className='sign-up-a'>sign up with email and a password</a>
                 <GoogleLoginButton onClick={() => login()}/>
                 <FacebookLoginButton onClick={handleFacebookLogin}/>
                 <GithubLoginButton onClick={handleGithubLogin}/>
-                <button onClick={()=>console.log((profile as any), userName, localStorage.getItem('token'))}></button>
-                {/**For testing only */}
-                {userName !== '' ? <button onClick={logOut}>LOG OUT</button> : <div></div>}
             </div>
         </div>
     )

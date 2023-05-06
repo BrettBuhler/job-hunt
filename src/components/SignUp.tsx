@@ -4,13 +4,12 @@ import '../styles/signup.css'
 import '../styles/popup.css'
 import handleSignUp from '../services/handleSignUp'
 
-const REACT_APP_BASE_URL: string = process.env.REACT_APP_BASE_URL || ''
-
 interface SignUpProps {
     setUserName: (str:string) => void;
     setUserToken: (str:string) => void;
+    setSignUp: (bool: boolean) => void;
 }
-const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken}) => {
+const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken, setSignUp}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -24,9 +23,11 @@ const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken}) => {
             const response = handleSignUp(email, password)
             .then((res) => {
                 if (res.data){
+                    console.log(res)
                     localStorage.setItem('token', res.data)
                     setUserName(email)
                     setUserToken(res.data)
+                    setSignUp(false)
                 } else {
                     setMessage(`A user with that email is already signed up. `)
                     setPopup(true)
@@ -74,7 +75,7 @@ const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken}) => {
         <div>
             <Popup setPopup={setPopup} bool={popup} message={message}></Popup>
         <div className="sign-up">
-            <h1>Job-Hunt</h1>
+            <h1>Job Hunt</h1>
             <br/>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -94,6 +95,7 @@ const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken}) => {
                 <br />
                 <button type="submit">Sign Up</button>
             </form>
+            <button className='back-button' onClick={()=>setSignUp(false)}>Back</button>
         </div>
         </div>
     )

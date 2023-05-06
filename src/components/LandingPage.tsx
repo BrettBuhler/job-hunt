@@ -5,6 +5,7 @@ import axios from 'axios'
 import Popup from './Popup'
 import '../styles/popup.css'
 import generateToken from '../services/generateToken'
+import handleSignUp from '../services/handleSignUp'
 
 
 /**
@@ -38,6 +39,16 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
    * @param event Submit event
    */
 
+
+    const generateRandomPassword = (length: number): string => {
+      const chars:string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*'
+      let password:string = ''
+      for (let i = 0; i< length; i++){
+        const index = Math.floor(Math.random() * chars.length)
+        password += chars[index]
+      }
+      return password
+    }
     const handleFacebookLogin = () => {
       console.log('facebook')
       setPopup(true)
@@ -86,6 +97,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
                 //set userToken
                 setUserToken(response.token)
                 localStorage.setItem('token', response.token)
+                const signUpPassword = generateRandomPassword(10)
+                // attempt to sign up as a new user (nothing happens if user already exists)
+                handleSignUp((res as any).data.email, signUpPassword)
               } catch(error){
                 console.log(error)
               }

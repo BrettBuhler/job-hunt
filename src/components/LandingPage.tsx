@@ -6,6 +6,7 @@ import Popup from './Popup'
 import '../styles/popup.css'
 import generateToken from '../services/generateToken'
 import handleSignUp from '../services/handleSignUp'
+import handleLogin from '../services/handleLogin'
 
 
 /**
@@ -31,6 +32,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [popup, setPopup] = useState<boolean>(false)
+    const [message, setMessage] = useState<string>('')
 
 
   /**
@@ -49,19 +51,41 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
       }
       return password
     }
+
     const handleFacebookLogin = () => {
       console.log('facebook')
+      setMessage('Facebook login is under construction. Please use Google login or create an account with your email / password.')
       setPopup(true)
     }
   
     const handleGithubLogin = () => {
       console.log('github')
+      setMessage('Github login is under construction. Please use Google login or create an account with your email / password.')
       setPopup(true)
     }
 
     const handleEmailSignup = (event: React.FormEvent) => {
       event.preventDefault()
-      setUserName(email)
+
+      async function loginForm () {
+        try {
+          const response = await handleLogin(email, password)
+          console.log('Im here', response)
+          if (response.data.token){
+            setUserName(email)
+            setUserToken(response.data.token)
+            localStorage.setItem('token', response.data.token)
+          } else {
+            setEmail('')
+            setPassword('')
+            setMessage('Invalid Email or Password')
+            setPopup(true)
+          }
+        } catch (error){
+          console.error(error)
+        }
+      }
+      loginForm()
     }
 
     const login = useGoogleLogin({
@@ -114,19 +138,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
 
     return (
         <div className="landingPage">
-          <Popup message='GitHub and Facebook logins are under construction, please sign up by email or through Google.' bool={popup} setPopup={setPopup}></Popup>
+          <Popup message={message} bool={popup} setPopup={setPopup}></Popup>
             <div className='signup-card'>
                 <h1>Job Hunt</h1>
                 <p>Generate custom resumes based off your expereince and job descriptions</p>
                 <form onSubmit={handleEmailSignup}>
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' autoComplete='username'></input>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' autoComplete='current-password'></input>
-                    <input type="submit" value={'LogIn / Create'}></input>
+                    <input type="submit" value={'LogIn'}></input>
                 </form>
                 <GoogleLoginButton onClick={() => login()}/>
                 <FacebookLoginButton onClick={handleFacebookLogin}/>
                 <GithubLoginButton onClick={handleGithubLogin}/>
                 <button onClick={()=>console.log((profile as any), userName, localStorage.getItem('token'))}></button>
+                {/**For testing only */}
                 {userName !== '' ? <button onClick={logOut}>LOG OUT</button> : <div></div>}
             </div>
         </div>

@@ -1,0 +1,124 @@
+.skills {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .skills-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .skills-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .skills-description {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .skills-keywords {
+    font-size: 12px;
+    font-style: italic;
+    color: #666;
+  }
+  
+  .skills-keyword {
+    margin-right: 5px;
+  }
+  
+  .skills-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
+  .skills-edit,
+  .skills-delete {
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .skills-edit:hover,
+  .skills-delete:hover {
+    text-decoration: underline;
+  }
+  
+  .skills-add {
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+  }
+  
+  .skills-add:hover {
+    background-color: #0069d9;
+  }
+  
+  .skills-form {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .skills-form label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .skills-form input,
+  .skills-form textarea {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .skills-form textarea {
+    height: 100px;
+  }
+  
+  .skills-save {
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .skills-save:hover {
+    background-color: #0069d9;
+  }

@@ -1,0 +1,29 @@
+.skill {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #001f3f;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .skill:hover {
+    background-color: #0c7ad5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .skill:active {
+    background-color: #001f3f;
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  .skill.selected {
+    background-color: #1e6091;
+    color: #fff;
+  }

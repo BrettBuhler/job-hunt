@@ -32,7 +32,7 @@ const App = () => {
 
   if (userName){
     return (
-      <Dashboard setUserName={setUserName} setUserToken={setUserToken} setProfile={setProfile} setUser={setUser}></Dashboard>
+      <Dashboard setUserName={setUserName} setUserToken={setUserToken} setProfile={setProfile} setUser={setUser} userName={userName}></Dashboard>
     )
   } else if (!signUp) {
     return (

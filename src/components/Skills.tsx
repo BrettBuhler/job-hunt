@@ -1,5 +1,7 @@
 import { useState } from "react";
-import '../styles/Skills.css'
+import "../styles/Skills.css";
+import EditSkillModal from "./EditSkillModal";
+import SkillExpand from "./SkillExpand";
 
 type Skill = {
   name: string;
@@ -16,6 +18,7 @@ const Skills = ({ skills, setSkills }: SkillsProps) => {
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number | null>(
     null
   );
+  const [showEditModal, setShowEditModal] = useState(false);
   const [newSkill, setNewSkill] = useState<Skill>({
     name: "",
     keywords: [],
@@ -26,15 +29,19 @@ const Skills = ({ skills, setSkills }: SkillsProps) => {
     keywords: [],
     description: "",
   });
+  const [save, setSave] = useState<boolean>(false)
 
   const handleAddSkill = () => {
-    setNewSkill({ name: "", keywords: [], description: "" });
+    setEditingSkill({ name: "", keywords: [], description: "" });
     setSelectedSkillIndex(-1);
+    setShowEditModal(true);
+    setSave(true);
   };
 
   const handleEditSkill = (index: number) => {
     setEditingSkill(skills[index]);
     setSelectedSkillIndex(index);
+    setShowEditModal(true);
   };
 
   const handleDeleteSkill = (index: number) => {
@@ -45,30 +52,28 @@ const Skills = ({ skills, setSkills }: SkillsProps) => {
 
   const handleSaveSkill = () => {
     if (selectedSkillIndex === -1) {
-      setSkills([...skills, newSkill]);
+      setSkills([...skills, editingSkill]);
     } else if (selectedSkillIndex !== null) {
       const newSkills = [...skills];
       newSkills[selectedSkillIndex] = editingSkill;
       setSkills(newSkills);
     }
     setSelectedSkillIndex(null);
+    setShowEditModal(false);
   };
 
   return (
     <div className="skills">
-      <h1>Skills</h1>
+      <div className="skills-top-bar">
+        <button className='skills-edit'>Home</button>
+        <h1 className="skills-title">Edit Skills</h1>
+        <button className='skills-edit'>Save</button>
+      </div>
       <ul className="skills-list">
         {skills.map((skill, index) => (
           <li key={index} className="skills-item">
-            <h2>{skill.name}</h2>
-            <p className="skills-description">{skill.description}</p>
-            <ul className="skills-keywords">
-              {skill.keywords.map((keyword, i) => (
-                <li key={i} className="skills-keyword">
-                  {keyword}
-                </li>
-              ))}
-            </ul>
+              <h2>{skill.name}</h2>
+              <SkillExpand description={skill.description} keywords={skill.keywords} />
             <div className="skills-actions">
               <button
                 className="skills-edit"
@@ -89,95 +94,21 @@ const Skills = ({ skills, setSkills }: SkillsProps) => {
       <button className="skills-add" onClick={handleAddSkill}>
         Add Skill
       </button>
-      {selectedSkillIndex === -1 && (
-        <>
-          <h2>Add Skill</h2>
-          <div className="skills-form">
-            <div>
-              <label>Name:</label>
-              <input
-                className="skills-name"
-                value={newSkill.name}
-                onChange={(e) =>
-                  setNewSkill({ ...newSkill, name: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <label>Keywords:</label>
-              <input
-                className="skills-keywords"
-                value={newSkill.keywords.join(",")}
-                onChange={(e) =>
-                  setNewSkill({
-                    ...newSkill,
-                    keywords: e.target.value.split(","),
-                  })
-                }
-              />
-            </div>
-            <div>
-              <label>Description:</label>
-              <textarea
-                className="skills-description"
-                value={newSkill.description}
-                onChange={(e) =>
-                  setNewSkill({ ...newSkill, description: e.target.value})}
-                />
-            </div>
-        <button className="skills-save" onClick={handleSaveSkill}>
-          Save Skill
-        </button>
-      </div>
-    </>
-  )}
-  {selectedSkillIndex !== null && selectedSkillIndex !== -1 && (
-    <>
-      <h2>Edit Skill</h2>
-      <div className="skills-form">
-        <div>
-          <label>Name:</label>
-          <input
-            className="skills-name"
-            value={editingSkill.name}
-            onChange={(e) =>
-              setEditingSkill({ ...editingSkill, name: e.target.value })
-            }
+      {showEditModal && (
+        <div className="modal-overlay">
+          <EditSkillModal
+            skill={editingSkill}
+            onSave={handleSaveSkill}
+            onCancel={() => setShowEditModal(false)}
+            save={save}
+            setSave={setSave}
+            editingSkill={editingSkill}
+            setEditingSkill={setEditingSkill}
           />
         </div>
-        <div>
-          <label>Keywords:</label>
-          <input
-            className="skills-keywords"
-            value={editingSkill.keywords.join(",")}
-            onChange={(e) =>
-              setEditingSkill({
-                ...editingSkill,
-                keywords: e.target.value.split(","),
-              })
-            }
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            className="skills-description"
-            value={editingSkill.description}
-            onChange={(e) =>
-              setEditingSkill({
-                ...editingSkill,
-                description: e.target.value,
-              })
-            }
-          />
-        </div>
-        <button className="skills-save" onClick={handleSaveSkill}>
-          Save Skill
-        </button>
-      </div>
-    </>
-  )}
-</div>
-  )
-        }
-        export default Skills;
+      )}
+    </div>
+  );
+};
+
+export default Skills;

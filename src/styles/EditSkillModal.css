@@ -1,0 +1,76 @@
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .modal-content {
+    background-color: #1c2331;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #fff;
+    width: 50%;
+    max-width: 500px;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .modal-content h2 {
+    color: #fff;
+    margin-top: 0;
+  }
+  
+  .modal-content label {
+    color: #fff;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #29303b;
+    color: #fff;
+  }
+  
+  .modal-content textarea {
+    height: 150px;
+    width: 95%;
+  }
+
+  .modal-content button:hover {
+    color: #1c2331;
+    border: 2px solid #1c2331;
+    background-color: white;
+  }
+
+  .modal-content button {
+    color:rgb(255, 255, 255);
+    border: 2px solid white;
+    margin-top: 10px;
+    background-color: #1c2331;
+  }
+  
+  .modal-content .skills-name,
+  .modal-content .skills-keywords,
+  .modal-content .skills-description {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 80%;
+    }
+  }
+
+  

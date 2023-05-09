@@ -1,27 +1,62 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { googleLogout } from "@react-oauth/google"
 import TopBar from "./TopBar"
 import Sidebar from "./SideBar"
 import ButtonCards from './ButtonCards'
 import Skill from './Skill'
 import Skills from "./Skills"
+import getUser from "../services/getUser"
+
+type Skill = {
+    name: string;
+    keywords: string[];
+    description: string;
+  }
 
 interface DashboardProps {
     userName: string
+    userInfo: object
     setUserName: (str: string) => void
     setUserToken: (str: string) => void
     setProfile: (item: object) => void
     setUser: (item: object) => void
+    setUserInfo: (aUser: object) => void
+    
 }
 
-const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfile, setUser, userName}) => {
+const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfile, setUser, userName, userInfo, setUserInfo}) => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
     const [skills, setSkills] = useState<{ name: string, keywords: string[], description: string }[]>([])
     const [router, setRouter] = useState<string>('Home')
 
+    const effectRan = useRef(false)
+
     useEffect(()=>{
-        setSkills([{name: 'React', keywords: ['one', 'two', 'three'], description: 'This is a skill'},{name: 'JavaScript', keywords: ['one', 'two', 'three'], description: 'This is a skill'}])
-    },[])
+        async function getUserHelper() {
+            try {
+                const response = await getUser(userName)
+                if (response.email){
+                    setUserInfo(response)
+                }
+                
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        if (effectRan.current === false){
+            getUserHelper()
+            console.log('userName changed:', userName)
+        }
+        return ()=> {
+            console.log('unmounted')
+            effectRan.current = true
+        }
+    },[userName])
+
+    useEffect(()=>{
+        const skillArray: Skill[] = (userInfo as any).skills
+        setSkills(skillArray)
+    }, [userInfo])
 
     const handleSkillsChange = (newSkills: {name: string, keywords: string[], description: string}[]) => {
         setSkills(newSkills)
@@ -61,9 +96,9 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
         setUserName('')
         setUserToken('')
         setUser({})
+        setSkills([])
         localStorage.clear()
       }
-      console.log(router)
       switch(router){
         case 'Home':
             return (
@@ -78,7 +113,7 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
                 <div>
                     <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
                     <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
-                    <Skills setSkills={setSkills} skills={skills} setRouter={setRouter}/>
+                    <Skills setSkills={setSkills} skills={skills} setRouter={setRouter} setUserInfo={setUserInfo} userName={userName}/>
                 </div>
             )
         default:

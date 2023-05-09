@@ -27,14 +27,16 @@ interface LandingPageProps {
     setProfile: (aProfile: object) => void
     setUserToken: (str: string) => void
     setSignUp: (bool: boolean) => void
+    setUserInfo: (aUser: object) => void
 }
 
 
-const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName, setUserToken, setSignUp}) => {
+const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName, setUserToken, setSignUp, setUserInfo}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [popup, setPopup] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
+  
 
 
 
@@ -76,6 +78,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
           if (response.data){
             setUserName(email)
             setUserToken(response.data.token)
+            setUserInfo(response.data.user)
             localStorage.setItem('token', response.data.token)
           } else {
             setEmail('')

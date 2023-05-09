@@ -23,7 +23,7 @@ function ButtonCards({ items, onButtonClick, displayItems}: ButtonCardsProps) {
                 <FontAwesomeIcon icon={faEdit} />
             </div>
             <div className='display-items'>
-              {displayItems.map(x=><div className='button-item'>{(x as any).name}</div>)}
+              {displayItems && displayItems.map(x=><div className='button-item' key={`${item}.${(x as any).name}`}>{(x as any).name}</div>)}
             </div>
         </div>
       ))}

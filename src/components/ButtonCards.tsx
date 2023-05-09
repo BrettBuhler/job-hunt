@@ -9,10 +9,11 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 interface ButtonCardsProps {
   items: string[];
+  displayItems: object[];
   onButtonClick: (item: string) => void;
 }
 
-function ButtonCards({ items, onButtonClick }: ButtonCardsProps) {
+function ButtonCards({ items, onButtonClick, displayItems}: ButtonCardsProps) {
   return (
     <div className="button-cards-container">
       {items.map((item) => (
@@ -20,6 +21,9 @@ function ButtonCards({ items, onButtonClick }: ButtonCardsProps) {
           <h3>{item}</h3>
             <div className='edit-icon' onClick={() => onButtonClick(item)}>
                 <FontAwesomeIcon icon={faEdit} />
+            </div>
+            <div className='display-items'>
+              {displayItems.map(x=><div className='button-item'>{(x as any).name}</div>)}
             </div>
         </div>
       ))}

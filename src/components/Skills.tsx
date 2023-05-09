@@ -12,9 +12,10 @@ type Skill = {
 type SkillsProps = {
   skills: Skill[];
   setSkills: (skills: Skill[]) => void;
+  setRouter: (str: string) => void
 };
 
-const Skills = ({ skills, setSkills }: SkillsProps) => {
+const Skills = ({ skills, setSkills, setRouter }: SkillsProps) => {
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number | null>(
     null
   );
@@ -65,7 +66,7 @@ const Skills = ({ skills, setSkills }: SkillsProps) => {
   return (
     <div className="skills">
       <div className="skills-top-bar">
-        <button className='skills-edit'>Home</button>
+        <button className='skills-edit' onClick={()=>setRouter('Home')}>Home</button>
         <h1 className="skills-title">Edit Skills</h1>
         <button className='skills-edit'>Save</button>
       </div>

@@ -10,10 +10,11 @@ interface SidebarProps {
   isMenuOpen: boolean;
   setIsMenuOpen: (isOpen: boolean) => void;
   menuItems: MenuItem[];
+  setRouter: (route: string) => void;
 }
 
 
-const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setIsMenuOpen, menuItems }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setIsMenuOpen, menuItems, setRouter }) => {
   const handleCloseMenu = () => {
     setIsMenuOpen(false);
   };

@@ -3,9 +3,11 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
   }
   
   .button-card {
+    display: flex;
     background-color: #0d2235;
     color: #fff;
     padding: 20px;
@@ -16,9 +18,10 @@
     width: 40%; /* default width for 2 cards per row */
     height: 25vh; /* height of each card */
     display: flex;
-    flex-direction: column;
+    flex-direction: left;
     justify-content: space-between;
     position: relative;
+    flex-wrap: wrap;
   }
   
   @media (max-width: 768px) {
@@ -84,3 +87,24 @@
     }
   }
   
+  .display-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    overflow-y: auto;
+  }
+
+  .button-item {
+    display: inline-block;
+    background-color: #1c2331;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+    font-weight: bold;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 10px;
+  }

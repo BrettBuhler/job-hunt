@@ -6,6 +6,7 @@ import ButtonCards from './ButtonCards'
 import Skill from './Skill'
 import Skills from "./Skills"
 import getUser from "../services/getUser"
+import CoverLetterGen from "./CoverLetterGen"
 
 type Skill = {
     name: string;
@@ -65,7 +66,10 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
 
     //Menu items for side bar
     const menuItems = [
-        {name: 'About', onClick: ()=>console.log('Item 1')},
+        {name: 'Write Letter', onClick: ()=>{
+            setRouter('Letter')
+            setIsMenuOpen(false)
+        }},
         {name: 'Skills', onClick: ()=>{
             setRouter('Skills')
             setIsMenuOpen(false)
@@ -116,9 +120,18 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
                     <Skills setSkills={setSkills} skills={skills} setRouter={setRouter} setUserInfo={setUserInfo} userName={userName}/>
                 </div>
             )
+        case 'Letter':
+            return (
+                <div>
+                    <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
+                    <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
+                    <CoverLetterGen />
+                </div>
+            )
         default:
             return (
-                <div></div>
+                <div>
+                </div>
             )
       }
 }

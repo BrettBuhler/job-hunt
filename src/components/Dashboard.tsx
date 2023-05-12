@@ -7,12 +7,18 @@ import Skill from './Skill'
 import Skills from "./Skills"
 import getUser from "../services/getUser"
 import CoverLetterGen from "./CoverLetterGen"
+import ResumeUploader from "./ResumeUploader"
 
 type Skill = {
     name: string;
     keywords: string[];
     description: string;
   }
+
+type Resume = {
+    name: string
+    text: string
+}
 
 interface DashboardProps {
     userName: string
@@ -29,6 +35,7 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
     const [skills, setSkills] = useState<{ name: string, keywords: string[], description: string }[]>([])
     const [router, setRouter] = useState<string>('Home')
+    const [resumes, setResumes] = useState<{ name: string, text: string}[]>([])
 
     const effectRan = useRef(false)
 
@@ -56,6 +63,8 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
 
     useEffect(()=>{
         const skillArray: Skill[] = (userInfo as any).skills
+        const resumeArray: Resume[] = (userInfo as any).resumes
+        setResumes(resumeArray)
         setSkills(skillArray)
     }, [userInfo])
 
@@ -77,15 +86,15 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
         {name: 'Projects', onClick: ()=>console.log('Item 2')},
         {name: 'Work Experience', onClick: ()=>console.log('Item 3')},
         {name: 'Education', onClick: ()=>console.log('Item 3')},
-        {name: 'Resume', onClick: ()=>console.log('Item 1')}
+        {name: 'Resumes', onClick: ()=>{
+            setRouter('Resumes')
+            setIsMenuOpen(false)
+        }}
     ]
 
     const items = [
-        'About',
         'Skills',
-        'Projects',
-        'Work Expereince',
-        'Resume'
+        'Resumes'
     ]
 
     
@@ -109,7 +118,7 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
                 <div>
                     <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
                     <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
-                    <ButtonCards onButtonClick={onButtonClick} items={items} displayItems={skills}></ButtonCards>
+                    <ButtonCards onButtonClick={onButtonClick} items={items} displayItems={skills} resumeItems={resumes}></ButtonCards>
                 </div>
                 )
         case 'Skills':
@@ -125,7 +134,15 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
                 <div>
                     <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
                     <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
-                    <CoverLetterGen />
+                    <CoverLetterGen skills={skills}/>
+                </div>
+            )
+        case 'Resumes':
+            return (
+                <div>
+                    <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
+                    <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
+                    <ResumeUploader resumes={resumes} userName={userName} setUserInfo={setUserInfo} setResumes={setResumes}/>
                 </div>
             )
         default:

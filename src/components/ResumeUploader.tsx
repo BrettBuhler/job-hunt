@@ -49,7 +49,11 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({resumes, setResumes, set
     const handleUpload = () => {
         const newResume = {name: resumeName, text: selectedText}
         if (selectedText !== '' && resumeName !== ''){
-            setResumes([...resumes, newResume])
+            if (resumes){
+                setResumes([...resumes, newResume])
+            } else {
+                setResumes([newResume])
+            }
             setResumeName('')
             setSelectedText('')
         } else {

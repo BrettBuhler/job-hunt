@@ -134,7 +134,7 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
                 <div>
                     <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
                     <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
-                    <CoverLetterGen skills={skills}/>
+                    <CoverLetterGen skills={skills} resumes={resumes}/>
                 </div>
             )
         case 'Resumes':

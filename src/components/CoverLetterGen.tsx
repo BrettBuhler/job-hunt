@@ -3,6 +3,7 @@ import getKeyWords from "../services/getKeyWords"
 import getCoverLetter from '../services/getCoverLetter'
 import ResumeSelect from '../components/ResumeSelect'
 import Popup from "./Popup"
+import LoadingScreen from "./LoadingScreen"
 
 type Skill = {
     name: string;
@@ -25,12 +26,13 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
     const [text, setText] = useState<string>('')
     const [keywords, setKeywords] = useState<string[]>([])
     const [returnText, setReturnText] = useState<string>('')
-    const [additions, setAdditions] = useState<string>('')
     const [letter, setLetter] = useState<string>('')
     const [popup, setPopup] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
     const [renderSelect, setRenderSelect] = useState<boolean>(false)
     const [selectedResume, setSelectedResume] = useState<Resume>({name: 'void',text: 'void'})
+    const [loading, setLoading] = useState<boolean>(false)
+    const [doneLoading, setDoneLoading] = useState<boolean>(false)
 
     const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value)
@@ -71,29 +73,20 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
         getKeysHelper()
     }
 
-    const getLetter = () => {
-        async function getLetterHelper() {
-            try {
-                const response = await getCoverLetter(sometext)
-                console.log(response)
-                console.log(response.data.choices[0])
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        if (!resumes[0]){
-            setMessage('We can\'t write you a cover letter without a resume. Please upload one before writing a letter.')
-            return
-        }
+    async function getLetter (additions: string) {
         let sometext: string
         if (additions.length > 0){
-            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. Think carefully about how the job description matches my skills and resume. Additional information about my skills\n' + additions +'\nMy resume:\n' + resumes[0] + '\nThe job description:\n' + text
+            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. Think carefully about how the job description matches my skills and resume. Additional information about my skills\n' + additions +'\nMy resume:\n' + selectedResume.text + '\nThe job description:\n' + text
         } else {
-            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. You asked for my resume, and the job description.\nHere is my resume:\n' + resumes[0] + '\nHere isthe job description:\n' + text
+            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. You asked for my resume, and the job description.\nHere is my resume:\n' + selectedResume.text + '\nHere isthe job description:\n' + text
         }
-        //sometext = 'You are the greatest coverletter writer on earth. Write me a cover letter for a job at JimBob Bean Emporium. I have 3 years of experince with kidny bean identification, and a certificanion in bean management from bean.com.'
-        getLetterHelper()
-        
+        try {
+            const response = await getCoverLetter(sometext)
+            return (response)
+        } catch (error) {
+            console.error(error)
+            return "error generating coverletter"
+        }
     }
 
     const makeAdditions = (mySkills: Skill[]):string => {
@@ -114,9 +107,48 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
             setPopup(true)
         }
     }
+
+    async function chatGPT () {
+        setLoading(true)
+        try{
+            const getKeysResponse = await getKeyWords(text)
+            let str = getKeysResponse.data.choices[0].text
+            let index = str.lastIndexOf('\n')
+            str = str.replace('\n', '')
+            console.log(str.slice(index).split(','))
+            const keywords = str.slice(index).split(',')
+            const overlap = getOverlap(keywords)
+            console.log('overlap is,', overlap)
+            const additions = makeAdditions(overlap)
+            const getLetterResponse = await getLetter(additions)
+            console.log('I am here', getLetterResponse)
+            console.log(getLetterResponse)
+            if (getLetterResponse.data.choices[0].text){
+                let resText = getLetterResponse.data.choices[0].text
+                resText = resText.slice(resText.indexOf('Dear'))
+                resText += '\n\nThese are the keywords extracted from the job descripton, consider tailoring your resume to include any you can:\n-' + keywords.join('\n-')
+                setText(resText)
+                //MAKE LETTER PAGE
+            } else {
+                //ERROR MESSAGE
+            }
+            setDoneLoading(true)
+        } catch(error) {
+            console.error(error)
+        }
+    }
+
+    if(doneLoading){
+        setLoading(false)
+        setDoneLoading(false)
+    }
+
     return (
         <div>
-            <textarea value={text} onChange={handleTextAreaChange}/>
+            <h1 className="write-my-coverletter-title">Write my CoverLetter</h1>
+            <p className="write-my-coverletter-p">Welcome to Job Hunt. We make it easy for you to create a professional cover letter tailored to the job you want. Just input the job description in the text field and click start. Our system will take care of the rest. Try us today and get one step closer to your dream job.</p>
+            <textarea value={text} onChange={handleTextAreaChange} className="job-description"/>
+            <button className="start-button" onClick={()=>setRenderSelect(true)}>Start</button>
             <button onClick={getKeys}>Get Keywords</button>
             <button onClick={()=>{
                 let textToEdit = returnText
@@ -128,19 +160,14 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
             <button onClick={() => getOverlap(keywords)}>
                 GET OVERLAP
             </button>
-            <button onClick={()=>{
-                setAdditions(makeAdditions(getOverlap(keywords)))
-                console.log(makeAdditions(getOverlap(keywords)))
-            }}>GenSTRING</button>
-            <button onClick={()=>{
-                getLetter()
-            }}>GEN LETTER</button>
             {letter && <div>{letter}</div>}
             <button onClick={()=>{
                 handleWrite()
             }}>SELECT RES</button>
-            <ResumeSelect resumes={resumes} renderSelect={renderSelect} setRenderSelect={setRenderSelect} setSelectedResume={setSelectedResume} selectedResume={selectedResume}/>
+            <ResumeSelect resumes={resumes} renderSelect={renderSelect} setRenderSelect={setRenderSelect} setSelectedResume={setSelectedResume} selectedResume={selectedResume} chatGPT={chatGPT} setLoading={setLoading}/>
             <Popup message={message} bool={popup} setPopup={setPopup}/>
+            <LoadingScreen loading={loading}/>
+            <button onClick={()=>{setLoading(true)}}>LOAD</button>
         </div>
     )
 }

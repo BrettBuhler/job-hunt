@@ -11,13 +11,19 @@ interface ResumeSelectProps {
     renderSelect: boolean
     setRenderSelect: (bool: boolean) => void
     setSelectedResume: (resume: Resume) => void
+    chatGPT: () => void
     selectedResume: Resume
+    setLoading: (bool:boolean) => void
 }
 
-const ResumeSelect: React.FC<ResumeSelectProps> = ({resumes, setSelectedResume, renderSelect, setRenderSelect, selectedResume}) => {
+const ResumeSelect: React.FC<ResumeSelectProps> = ({resumes, setSelectedResume, renderSelect, setRenderSelect, selectedResume, chatGPT, setLoading}) => {
 
     const handleSelectResume = (resume: Resume) => {
         setSelectedResume(resume)
+    }
+
+    const startWriting = () => {
+        chatGPT()
     }
 
     return (
@@ -43,8 +49,15 @@ const ResumeSelect: React.FC<ResumeSelectProps> = ({resumes, setSelectedResume, 
                 ))}
             </div>
             <div className='resume-button-container'>
-                <button className='resume-button'>Continue</button>
-                <button className='resume-button' onClick={()=>setRenderSelect(false)}>Back</button>
+                <button className='resume-button' onClick={()=>{
+                    setLoading(true)
+                    chatGPT()
+                    setRenderSelect(false)
+                }}>Continue</button>
+                <button className='resume-button' onClick={()=>{
+                    setSelectedResume({name: 'void', text: 'void'})
+                    setRenderSelect(false)
+                }}>Back</button>
             </div>
             </div>
         </div>}

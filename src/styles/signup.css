@@ -1,19 +1,19 @@
 body {
     font-family: Arial, sans-serif;
-    background: url('../Images/fotor-ai.jpg');
+    background-color: #1c2331;
     background-size: cover;
   }
   
-  .sign-up {
-    margin: 50px auto;
-    padding: 20px;
-    background: radial-gradient(#6cb7e6, #e2e3f0);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
-    text-align: center;
-    border-radius: 5%;
-  }
   
+  .sighup-title-div{
+    border-bottom: 2px solid #fff;
+    margin: 10px;
+  }
+
+  .signup-h1{
+    color: #fff;
+  }
+
   h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
@@ -26,8 +26,8 @@ body {
   }
   
   input[type="email"],
-  input[type="password"],
-  input[type="submit"] {
+  input[type="password"]{
+    box-sizing: border-box;
     display: block;
     margin: 20px auto;
     padding: 10px;
@@ -38,29 +38,69 @@ body {
   }
   
   input[type="submit"] {
-    background-color: #4CAF50;
+    box-sizing: border-box;
+    display: block;
+    border: 2px solid #fff;
+    background-color: #1c2331;
+    margin: 20px auto;
+    color: #fff;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease;
+    font-weight: bold;
+    width: 80%;
     color: #fff;
     cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   
   input[type="submit"]:hover {
-    background-color: #3e8e41;
+    background-color: #fff;
+    border: 2px solid #1c2331;
+    color:#1c2331;
+    font-weight: bold;
+  }
+
+  .border-bottom{
+    border-bottom: 2px solid #fff;
+  }
+
+  .sign-up-p {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
   }
   
   button {
     margin-top: 20px;
-    margin: 0 auto;
+    margin: 20px auto;
     display: block;
     width: 80%;
-    padding: 10px;
     border: none;
     border-radius: 5px;
     font-size: 1.1em;
     cursor: pointer;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: #7a5454;
   }
-  
-  button:hover {
-    opacity: 0.8;
+
+  .sign-up-submit:hover{
+    background-color: #fff;
+    border: 2px solid #1c2331;
+    color:#1c2331;
+    font-weight: bold;
+  }
+
+  .sign-up-submit{
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    background-color: #1c2331;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease;
+    margin: 20px auto;
   }

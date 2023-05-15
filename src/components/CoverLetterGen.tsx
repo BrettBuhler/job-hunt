@@ -4,6 +4,8 @@ import getCoverLetter from '../services/getCoverLetter'
 import ResumeSelect from '../components/ResumeSelect'
 import Popup from "./Popup"
 import LoadingScreen from "./LoadingScreen"
+import LetterPage from "./LetterPage"
+import '../styles/CoverLetterGen.css'
 
 type Skill = {
     name: string;
@@ -19,14 +21,13 @@ type Skill = {
 interface CoverLetterGenProps {
     skills: Skill[]
     resumes: Resume[]
+    setRouter: (route: string) => void
 }
 
-const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
+const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes, setRouter}) => {
 
     const [text, setText] = useState<string>('')
-    const [keywords, setKeywords] = useState<string[]>([])
     const [returnText, setReturnText] = useState<string>('')
-    const [letter, setLetter] = useState<string>('')
     const [popup, setPopup] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
     const [renderSelect, setRenderSelect] = useState<boolean>(false)
@@ -101,7 +102,12 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
 
     const handleWrite = ()=>{
         if (resumes){
-            setRenderSelect(true)
+            if (text){
+                setRenderSelect(true)
+            } else {
+                setMessage('You need to input a job description before you write a cover letter')
+                setPopup(true)
+            }
         } else {
             setMessage('You must have a resume uploaded before you write a cover letter')
             setPopup(true)
@@ -126,15 +132,19 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
             if (getLetterResponse.data.choices[0].text){
                 let resText = getLetterResponse.data.choices[0].text
                 resText = resText.slice(resText.indexOf('Dear'))
-                resText += '\n\nThese are the keywords extracted from the job descripton, consider tailoring your resume to include any you can:\n-' + keywords.join('\n-')
-                setText(resText)
+                resText += '\n\nThese are the keywords extracted from the job description, consider tailoring your resume to include any you can:\n' + keywords.join(', ')
+                setReturnText(resText)
                 //MAKE LETTER PAGE
             } else {
-                //ERROR MESSAGE
-            }
+                setMessage("Unable to write coverletter. Consider shortening the job description as OpenAI has a maximum text length it can process.")
+                setPopup(true)
+            }   
             setDoneLoading(true)
         } catch(error) {
             console.error(error)
+            setMessage("Unable to write coverletter. Consider shortening the job description as OpenAI has a maximum text length it can process.")
+            setPopup(true)
+            setDoneLoading(true)
         }
     }
 
@@ -144,30 +154,22 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes}) => {
     }
 
     return (
-        <div>
-            <h1 className="write-my-coverletter-title">Write my CoverLetter</h1>
-            <p className="write-my-coverletter-p">Welcome to Job Hunt. We make it easy for you to create a professional cover letter tailored to the job you want. Just input the job description in the text field and click start. Our system will take care of the rest. Try us today and get one step closer to your dream job.</p>
-            <textarea value={text} onChange={handleTextAreaChange} className="job-description"/>
-            <button className="start-button" onClick={()=>setRenderSelect(true)}>Start</button>
-            <button onClick={getKeys}>Get Keywords</button>
-            <button onClick={()=>{
-                let textToEdit = returnText
-                let index = textToEdit.lastIndexOf('\n')
-                textToEdit = textToEdit.replace('\n', '')
-                console.log(textToEdit.slice(index).split(','))
-                setKeywords(textToEdit.slice(index).split(','))
-            }}>returntext</button>
-            <button onClick={() => getOverlap(keywords)}>
-                GET OVERLAP
-            </button>
-            {letter && <div>{letter}</div>}
-            <button onClick={()=>{
-                handleWrite()
-            }}>SELECT RES</button>
-            <ResumeSelect resumes={resumes} renderSelect={renderSelect} setRenderSelect={setRenderSelect} setSelectedResume={setSelectedResume} selectedResume={selectedResume} chatGPT={chatGPT} setLoading={setLoading}/>
-            <Popup message={message} bool={popup} setPopup={setPopup}/>
-            <LoadingScreen loading={loading}/>
-            <button onClick={()=>{setLoading(true)}}>LOAD</button>
+        <div className="cover-letter-container">
+            <div className="cover-letter-div">
+                <div className="write-my-coverletter-title-container">
+                    <h1 className="write-my-coverletter-title">Write my Cover Letter</h1>
+                </div>
+                <p className="write-my-coverletter-p">Welcome to Job Hunt. We make it easy for you to create a professional cover letter tailored to the job you want. If you've already saved your skills and resume, just input the job description in the text field and click start. Our system will take care of the rest. Try us today and get one step closer to your dream job.</p>
+                <textarea value={text} onChange={handleTextAreaChange} className="job-description" placeholder="Input job description:" />
+                <div className="write-my-coverletter-button-container">
+                    <button className="write-my-coverletter-button" onClick={()=>setRouter('Home')}>Home</button>
+                    <button className="write-my-coverletter-button" onClick={()=>{handleWrite()}}>Start</button>
+                </div>
+                <ResumeSelect resumes={resumes} renderSelect={renderSelect} setRenderSelect={setRenderSelect} setSelectedResume={setSelectedResume} selectedResume={selectedResume} chatGPT={chatGPT} setLoading={setLoading}/>
+                <Popup message={message} bool={popup} setPopup={setPopup}/>
+                <LoadingScreen loading={loading}/>
+                <LetterPage returnText={returnText} onClose={()=>setRouter('Home')}/>
+            </div>
         </div>
     )
 }

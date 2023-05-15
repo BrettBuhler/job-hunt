@@ -72,30 +72,27 @@ const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken, setSignUp}) =
     }
 
     return (
-        <div>
+        <div className='landingPage'>
             <Popup setPopup={setPopup} bool={popup} message={message}></Popup>
-        <div className="sign-up">
-            <h1>Job Hunt</h1>
-            <br/>
+        <div className="signup-card">
+            <div className='sighup-title-div'>
+                <h1 className='signup-h1'>Job Hunt</h1>
+            </div>
+            <p className='sign-up-p'>Sign up with your email and password. Passwords must be 8 characters long and contain a capital letter</p>
             <form onSubmit={handleSubmit}>
                 <label>
-                    Email:
-                    <input type="email" value={email} onChange={handleEmailChange} />
+                    <input type="email" value={email} onChange={handleEmailChange} placeholder='Email'/>
                 </label>
-                <br />
                 <label>
-                    Password:
-                    <input type="password" value={password} onChange={handlePasswordChange} />
+                    <input type="password" value={password} onChange={handlePasswordChange} placeholder='Password'/>
                 </label>
-                <br />
                 <label>
-                    Confirm Password:
-                    <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
+                    <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} placeholder='Confirm Password'/>
                 </label>
-                <br />
-                <button type="submit">Sign Up</button>
+                <div className='border-bottom'></div>
+                <button type="submit" className='sign-up-submit'>Sign Up</button>
             </form>
-            <button className='back-button' onClick={()=>setSignUp(false)}>Back</button>
+            <button className='sign-up-submit' onClick={()=>setSignUp(false)}>Back</button>
         </div>
         </div>
     )

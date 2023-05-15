@@ -145,12 +145,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
         <div className="landingPage">
           <Popup message={message} bool={popup} setPopup={setPopup}></Popup>
             <div className='signup-card'>
-                <h1>Job Hunt</h1>
-                <p>Generate custom resumes based off your expereince and job descriptions</p>
+                <h1 className='main-h1'>Job Hunt</h1>
+                <p className='main-p'>Boost your job search with AI. Create tailored cover letters based on your skills and resume in seconds.</p>
                 <form onSubmit={handleEmailSignup}>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' autoComplete='username'></input>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' autoComplete='current-password'></input>
-                    <input type="submit" value={'LogIn'}></input>
+                    <input className='email-input'type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' autoComplete='username'></input>
+                    <input className='password-input' type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' autoComplete='current-password'></input>
+                    <input className='input-submit' type="submit" value={'LogIn'}></input>
                 </form>
                 <a onClick={()=>{setSignUp(true)}} className='sign-up-a'>sign up with email and a password</a>
                 <GoogleLoginButton onClick={() => login()}/>

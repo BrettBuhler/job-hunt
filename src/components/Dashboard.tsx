@@ -3,7 +3,6 @@ import { googleLogout } from "@react-oauth/google"
 import TopBar from "./TopBar"
 import Sidebar from "./SideBar"
 import ButtonCards from './ButtonCards'
-import Skill from './Skill'
 import Skills from "./Skills"
 import getUser from "../services/getUser"
 import CoverLetterGen from "./CoverLetterGen"
@@ -134,7 +133,7 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
                 <div>
                     <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
                     <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
-                    <CoverLetterGen skills={skills} resumes={resumes}/>
+                    <CoverLetterGen skills={skills} resumes={resumes} setRouter={setRouter}/>
                 </div>
             )
         case 'Resumes':
@@ -142,18 +141,16 @@ const Dashboard: React.FC<DashboardProps>=({setUserName, setUserToken, setProfil
                 <div>
                     <TopBar onLogout={logOut} siteName="Job Hunt" isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></TopBar>
                     <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} menuItems={menuItems} setRouter={setRouter}></Sidebar>
-                    <ResumeUploader resumes={resumes} userName={userName} setUserInfo={setUserInfo} setResumes={setResumes}/>
+                    <ResumeUploader resumes={resumes} userName={userName} setUserInfo={setUserInfo} setResumes={setResumes} setRouter={setRouter}/>
                 </div>
             )
         default:
             return (
                 <div>
+                    <p>Error Reload Page</p>
                 </div>
             )
       }
 }
 
 export default Dashboard
-
-//<ButtonCards onButtonClick={onButtonClick} items={items}></ButtonCards>
-//<Skills setSkills={setSkills} skills={skills}/>

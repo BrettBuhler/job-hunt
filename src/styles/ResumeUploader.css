@@ -1,0 +1,165 @@
+.resume-uploader-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #1c2331;
+    color: #fff;
+    font-family: sans-serif;
+    }
+    
+    .resume-upload-form {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #29303b;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .resume-upoad-titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    }
+    
+    .resume-uploader-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin: auto;
+    }
+    
+    .resume-uploader-home {
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    background-color: #1c2331;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease;
+    margin-right: 10px;
+    }
+    
+    .resume-uploader-home:hover {
+    background-color: #fff;
+    border: 2px solid #1c2331;
+    color:#1c2331;
+    font-weight: bold;
+    }
+    
+    input[type="text"],
+    textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    color: #333333;
+    margin-bottom: 20px;
+    }
+    
+    textarea {
+    height: 200px;
+    }
+    
+    .resume-uploader-upload-button {
+        padding: 10px 20px;
+        border: 2px solid #fff;
+        background-color: #1c2331;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: ease;
+        margin-left: 10px;
+    }
+    
+    .resume-uploader-upload-button:hover {
+        background-color: #fff;
+        border: 2px solid #1c2331;
+        color:#1c2331;
+        font-weight: bold;
+    }
+    
+    .my-resumes {
+    width: 100%;
+    max-width: 800px;
+    background-color: #29303b;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 2px solid #fff;
+    }
+    
+    .my-resume-uploader-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    text-align: center;
+    }
+    
+    .resume-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+    
+    .resume-li {
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+        margin-bottom: 10px;
+        border-bottom: 2px solid #fff;
+        padding-bottom: 10px;
+        grid-gap: 5px;
+      }
+    
+    .resume-item {
+    width: 100px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    }
+    
+    .resume-delete-button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #ff4d4d;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: 14rem;
+    }
+    
+    .resume-delete-button:hover {
+    background-color: #ff3333;
+    }
+
+    .my-resumes-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center; /* to center horizontally */
+        align-items: center; /* to center vertically */
+      }
+
+.resume-p{
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+}
+
+      

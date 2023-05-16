@@ -15,7 +15,7 @@
   margin: 5px;
   box-shadow: 0 0 10px #000;
   border-radius: 10px;
-  min-width: 320px;
+  min-width: 200px;
   width: 42%; /* default width for 2 cards per row */
   height: 25vh; /* height of each card */
   min-height: 250px;
@@ -102,13 +102,13 @@
   margin: 10px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 860px) {
   .button-card {
     width: 100%; /* set width to 100% for 1 card per row */
   }
 }
 
-@media (min-width: 701px) {
+@media (min-width: 861px) {
   .button-cards-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 items per row */

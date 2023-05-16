@@ -27,7 +27,7 @@
     max-width: 800px;
     padding: 20px;
     margin-bottom: 20px;
-    background-color: #29303b;
+    background-color: #1a1c28;
     border-radius: 10px;
     border: 2px solid #fff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -50,18 +50,19 @@
   .write-my-coverletter-button {
     padding: 10px 20px;
     border: 2px solid #fff;
-    background-color: #1c2331;
+    background-color: #1a1c28;
     color: #fff;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
     transition: ease;
     margin-left: 10px;
+    font-weight: bold;
   }
   
   .write-my-coverletter-button:hover {
     background-color: #fff;
-    border: 2px solid #1c2331;
+    border: 2px solid white;
     color: #1c2331;
     font-weight: bold;
   }

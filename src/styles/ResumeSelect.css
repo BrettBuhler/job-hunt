@@ -29,10 +29,9 @@
   
   .resume-radios {
     width: 60%;
-    margin: auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
     height: 50vh;
     overflow-y: auto;
   }
@@ -45,30 +44,37 @@
   
   .resume-radios-div {
     align-items: center;
-    background-color: #29303b;
+    margin: 0 auto;
+    background-color: #1a1c28;
     border: 2px solid transparent;
     cursor: pointer;
     display: flex;
     font-size: 20px;
-    margin: auto;
     margin-bottom: 10px;
     padding: 10px;
+    border: 2px solid #fff;
     transition: background-color 0.3s ease;
     width: 80%;
+    border-radius: 5px;
+    font-weight: bold;
   }
   
   .resume-radios-div:hover {
-    background-color: #1a1c28;
+    background-color: #130f0f76;
     border: 2px solid #fff;
     border-radius: 5px;
   }
+
   
   .resume-input-text {
     flex: 1;
     font-family: "Garamond", serif;
-    color: #f0eae1;
+    color: #fff;
+    font-weight: bold;
   }
-  
+
+
+
   .resume-radios-input {
     height: 20px;
     width: 20px;
@@ -77,20 +83,22 @@
   .resume-button {
     margin: auto;
     margin-bottom: 10px;
-    background-color: #29303b;
-    border: 2px solid transparent;
+    background-color: #1a1c28;
+    border: 2px solid #fff;
     border-radius: 5px;
-    color: #f0eae1;
+    color: #fff;
     cursor: pointer;
     font-family: "Garamond", serif;
     font-size: 20px;
     padding: 10px;
     transition: background-color 0.3s ease;
+    font-weight: bold;
   }
   
   .resume-button:hover {
-    background-color: #1a1c28;
+    background-color: #FFF;
     border: 2px solid White;
+    color:#1a1c28;
   }
 
   .resume-button-container{

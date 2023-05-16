@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import '../styles/ResumeSelect.css'
 
 interface Resume {
@@ -20,10 +19,6 @@ const ResumeSelect: React.FC<ResumeSelectProps> = ({resumes, setSelectedResume, 
 
     const handleSelectResume = (resume: Resume) => {
         setSelectedResume(resume)
-    }
-
-    const startWriting = () => {
-        chatGPT()
     }
 
     return (

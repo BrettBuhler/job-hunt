@@ -72,7 +72,6 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({resumes, setResumes, set
             try {
                 const response = await updateResume(userName, newResumes)
                 const getUserResponse = await getUser(userName)
-                console.log('getuser', getUserResponse)
                 setUserInfo(getUserResponse)
             } catch (error) {
                 console.error(error)

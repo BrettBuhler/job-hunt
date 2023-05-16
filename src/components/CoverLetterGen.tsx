@@ -56,30 +56,15 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes, setRout
                 }
             }
         }
-        console.log(overlap)
         return overlap
-    }
-
-    const getKeys = () => {
-        async function getKeysHelper () {
-            try {
-                const response = await getKeyWords(text)
-                console.log(response)
-                let str = response.data.choices[0].text
-                setReturnText(str)
-            } catch(err){
-                console.error(err)
-            }
-        }
-        getKeysHelper()
     }
 
     async function getLetter (additions: string) {
         let sometext: string
         if (additions.length > 0){
-            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. Think carefully about how the job description matches my skills and resume. Additional information about my skills\n' + additions +'\nMy resume:\n' + selectedResume.text + '\nThe job description:\n' + text
+            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. Think carefully about how the job description matches my skills and resume. Additional information about my skills\n' + additions +'Focus on how these skills add value and meet the job requirements.\nMy resume:\n' + selectedResume.text + '\nThe job description:\n' + text
         } else {
-            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. You asked for my resume, and the job description.\nHere is my resume:\n' + selectedResume.text + '\nHere isthe job description:\n' + text
+            sometext = 'You are the greatest coverletter writer on earth and I have hired you to write me a cover letter. You asked for my resume, and the job description. Think carefully about how the job description matches my skills and resume.\nHere is my resume:\n' + selectedResume.text + '\nHere isthe job description:\n' + text
         }
         try {
             const response = await getCoverLetter(sometext)
@@ -121,14 +106,10 @@ const CoverLetterGen: React.FC<CoverLetterGenProps> = ({skills, resumes, setRout
             let str = getKeysResponse.data.choices[0].text
             let index = str.lastIndexOf('\n')
             str = str.replace('\n', '')
-            console.log(str.slice(index).split(','))
             const keywords = str.slice(index).split(',')
             const overlap = getOverlap(keywords)
-            console.log('overlap is,', overlap)
             const additions = makeAdditions(overlap)
             const getLetterResponse = await getLetter(additions)
-            console.log('I am here', getLetterResponse)
-            console.log(getLetterResponse)
             if (getLetterResponse.data.choices[0].text){
                 let resText = getLetterResponse.data.choices[0].text
                 resText = resText.slice(resText.indexOf('Dear'))

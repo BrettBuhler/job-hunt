@@ -6,10 +6,9 @@ import handleSignUp from '../services/handleSignUp'
 
 interface SignUpProps {
     setUserName: (str:string) => void;
-    setUserToken: (str:string) => void;
     setSignUp: (bool: boolean) => void;
 }
-const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken, setSignUp}) => {
+const SignUp: React.FC<SignUpProps> = ({setUserName, setSignUp}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -23,10 +22,8 @@ const SignUp: React.FC<SignUpProps> = ({setUserName, setUserToken, setSignUp}) =
             const response = handleSignUp(email, password)
             .then((res) => {
                 if (res.data){
-                    console.log(res)
                     localStorage.setItem('token', res.data)
                     setUserName(email)
-                    setUserToken(res.data)
                     setSignUp(false)
                 } else {
                     setMessage(`A user with that email is already signed up. `)

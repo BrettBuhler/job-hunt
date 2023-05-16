@@ -23,7 +23,7 @@
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
-  background-color: #29303b;
+  background-color: #1a1c28;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   position: relative;
   min-width: 250px;
@@ -60,7 +60,7 @@
 .skills-edit {
   padding: 10px 20px;
   border: 2px solid #fff;
-  background-color: #1c2331;
+  background-color: #1a1c28;
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
@@ -85,7 +85,7 @@
 .skills-edit:hover,
 .skills-delete:hover {
     background-color: #fff;
-    border: 2px solid #1c2331;
+    border: 2px solid white;
     color:#1c2331;
     font-weight: bold;
 }
@@ -99,7 +99,7 @@ background-color: #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb {
-background-color: #1c2331;
+background-color: #1a1c28;
 border-radius: 10px;
 }
 
@@ -138,7 +138,7 @@ border-radius: 10px;
 }
 
 .skills-title-page {
-  background-color: #29303b;
+  background-color: #1a1c28;
   border-radius: 10px;
   border: 2px solid #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);

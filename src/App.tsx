@@ -6,7 +6,6 @@ import Dashboard from './components/Dashboard';
 
 
 const App = () => {
-  const [userToken, setUserToken] = useState<string>('')
   const [userName, setUserName] = useState<string>('')
   const [user, setUser] = useState<object>({})
   const [profile, setProfile] = useState<object>({})
@@ -35,7 +34,6 @@ const App = () => {
       fetchData()
     }
     return () => {
-      console.log('unmounted')
       effectRan.current = true
     }
     }
@@ -43,18 +41,16 @@ const App = () => {
 
   if (userName){
     return (
-      <Dashboard setUserName={setUserName} setUserToken={setUserToken} setProfile={setProfile} setUser={setUser} userName={userName} userInfo={userInfo} setUserInfo={setUserInfo}></Dashboard>
+      <Dashboard setUserName={setUserName} setProfile={setProfile} setUser={setUser} userName={userName} userInfo={userInfo} setUserInfo={setUserInfo}></Dashboard>
     )
   } else if (!signUp) {
     return (
-      <LandingPage setUserName={setUserName} user={user} setUser={setUser} profile={profile} setProfile = {setProfile} userName={userName} setUserToken= {setUserToken} setSignUp={setSignUp} setUserInfo={setUserInfo}/>
+      <LandingPage setUserName={setUserName} user={user} setUser={setUser} profile={profile} setProfile = {setProfile} userName={userName} setSignUp={setSignUp} setUserInfo={setUserInfo}/>
     )
   } else {
     return (
-      <SignUp setUserName={setUserName} setUserToken={setUserToken} setSignUp={setSignUp}></SignUp>
+      <SignUp setUserName={setUserName} setSignUp={setSignUp}></SignUp>
     )
   }
 }
-//<SignUp setUserName={setUserName} setUserToken={setUserToken}></SignUp>
-//<LandingPage setUserName={setUserName} user={user} setUser={setUser} profile={profile} setProfile = {setProfile} userName={userName} setUserToken= {setUserToken}/>
 export default App;

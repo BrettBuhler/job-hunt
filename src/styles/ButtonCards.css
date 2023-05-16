@@ -1,110 +1,121 @@
 .button-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.button-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1c28;
+  color: #fff;
+  padding: 20px;
+  margin: 5px;
+  box-shadow: 0 0 10px #000;
+  border-radius: 10px;
+  min-width: 320px;
+  width: 42%; /* default width for 2 cards per row */
+  height: 25vh; /* height of each card */
+  min-height: 250px;
+  position: relative;
+  border: 2px solid #fff;
+}
+
+
+
+.button-card h3 {
+  margin: 0 0 10px;
+}
+
+.edit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #1a1c28;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 2px solid #fff;
+}
+
+.edit-icon:hover {
+  background-color: #1a1c28;
+  box-shadow: 0px 0px 10px #d8d5d0;
+  animation: pulse 5s ease-out infinite;
+}
+
+.edit-icon svg {
+  color: #fff;
+  font-size: 16px;
+}
+
+.edit-icon:hover svg {
+  color: #fff;
+  text-shadow: 0px 0px 10px #ff9d00;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button-card-top-bar {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 5px;
+}
+
+.display-items {
+  overflow-y: scroll;
+  height: calc(100% - 70px); /* adjust height for top bar and padding */
+  padding-top: 10px;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+.display-items::-webkit-scrollbar-thumb {
+  border: 1px solid #fff;
+}
+
+
+.button-item {
+  display: inline-block;
+  background-color: #1a1c28;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
+  border: 2px solid white;
+  border-radius: 25px;
+  padding: 10px 20px;
+  margin: 10px;
+}
+
+@media (max-width: 700px) {
   .button-card {
-    display: flex;
-    background-color: #0d2235;
-    color: #fff;
-    padding: 20px;
-    margin: 20px;
-    box-shadow: 0 0 10px #000;
-    border-radius: 10px;
-    min-width: 320px;
-    width: 40%; /* default width for 2 cards per row */
-    height: 25vh; /* height of each card */
-    display: flex;
-    flex-direction: left;
-    justify-content: space-between;
-    position: relative;
-    flex-wrap: wrap;
+    width: 100%; /* set width to 100% for 1 card per row */
   }
-  
-  @media (max-width: 768px) {
-    .button-card {
-      width: 80%; /* width for 1 card per row on smaller screens */
-    }
-  }
-  
-  .button-card h3 {
-    margin: 0 0 10px;
-  }
-  
-  .button-card button {
-    background-color: #fff;
-    border: none;
-    color: #2c3e50;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    align-self: flex-end; /* align "Edit" button to the bottom of the card */
+}
+
+@media (min-width: 701px) {
+  .button-cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+    grid-gap: 20px; /* spacing between items */
   }
 
-  .edit-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #1c2237;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  .button-card {
+    width: auto; /* reset width to auto for 2 cards per row */
   }
-  
-  .edit-icon:hover {
-    background-color: #1a1c28;
-    box-shadow: 0px 0px 10px #d8d5d0;
-    animation: pulse 5s ease-out infinite;
-  }
-  
-  .edit-icon svg {
-    color: #fff;
-    font-size: 16px;
-  }
-  
-  .edit-icon:hover svg {
-    color: #fff;
-    text-shadow: 0px 0px 10px #ff9d00;
-  }
-  
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.2);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  .display-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 80%;
-    overflow-y: auto;
-  }
-
-  .button-item {
-    display: inline-block;
-    background-color: #1c2331;
-    color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease-in-out;
-    font-weight: bold;
-    border: 2px solid white;
-    border-radius: 25px;
-    padding: 10px 20px;
-    margin: 10px;
-  }
+}

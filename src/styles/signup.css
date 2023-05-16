@@ -41,7 +41,7 @@ body {
     box-sizing: border-box;
     display: block;
     border: 2px solid #fff;
-    background-color: #1c2331;
+    background-color: #1a1c28;
     margin: 20px auto;
     color: #fff;
     font-size: 1.1em;
@@ -59,7 +59,7 @@ body {
   input[type="submit"]:hover {
     background-color: #fff;
     border: 2px solid #1c2331;
-    color:#1c2331;
+    color:#1a1c28;
     font-weight: bold;
   }
 

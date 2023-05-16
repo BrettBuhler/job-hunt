@@ -1,0 +1,27 @@
+.welcome-div {
+    margin: 15px 5px;
+    background-color: #1a1c28;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid #fff;
+  }
+  
+  .welcome-h2 {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-p {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .dashboard-container{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 25px;
+  }

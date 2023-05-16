@@ -31,13 +31,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isMenuOpen, setIsMenuOpen, menuItems,
 
   return (
     <div className={`sidebar ${isMenuOpen ? 'open' : ''}`} id='sidebar'>
-      <button onClick={() => setIsMenuOpen(!isMenuOpen)}>Edit Info</button>
+      <button className="close-button" onClick={() => {
+          setIsMenuOpen(!isMenuOpen)
+        }}>Close</button>
       <ul>
         {menuItems.map((item, index) => (
           <li key={index} onClick={item.onClick}>{item.name}</li>
         ))}
       </ul>
-      <button onClick={handleCloseMenu}>Exit</button>
     </div>
   );
 };

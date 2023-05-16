@@ -19,10 +19,12 @@ function ButtonCards({ items, onButtonClick, displayItems, resumeItems}: ButtonC
     <div className="button-cards-container">
       {items.map((item, i) => (
         <div className="button-card" key={item}>
-          <h3>{item}</h3>
-            <div className='edit-icon' onClick={() => onButtonClick(item)}>
+          <div className='button-card-top-bar'>
+            <h3>{item}</h3>
+              <div className='edit-icon' onClick={() => onButtonClick(item)}>
                 <FontAwesomeIcon icon={faEdit} />
-            </div>
+              </div>
+          </div>
             <div className='display-items'>
             {displayItems && item == 'Skills' && displayItems.map(x=><div className='button-item' key={`${item}.${(x as any).name}`}>{(x as any).name}</div>)}
             {resumeItems && item == "Resumes" && resumeItems.map(x=><div className='button-item' key={`${item}.${(x as any).name}`}>{(x as any).name}</div>)}
@@ -30,7 +32,6 @@ function ButtonCards({ items, onButtonClick, displayItems, resumeItems}: ButtonC
         </div>
       ))}
     </div>
-  );
+  )
 }
-// {displayItems[i] && displayItems[i].map(x=><div className='button-item' key={`${item}.${(x as any).name}`}>{(x as any).name}</div>)}
 export default ButtonCards;

@@ -9,7 +9,6 @@ import generateToken from '../services/generateToken'
 import handleSignUp from '../services/handleSignUp'
 import handleLogin from '../services/handleLogin'
 
-
 /**
  * A landing page component that allows users to log in or sign up using their email, 
  * Google, Facebook, or Github accounts. Once logged in, the user's profile information 
@@ -25,27 +24,16 @@ interface LandingPageProps {
     setUser: (aUser: object) => void
     profile: object
     setProfile: (aProfile: object) => void
-    setUserToken: (str: string) => void
     setSignUp: (bool: boolean) => void
     setUserInfo: (aUser: object) => void
 }
 
 
-const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName, setUserToken, setSignUp, setUserInfo}) => {
+const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, profile , setUserName, userName, setSignUp, setUserInfo}) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [popup, setPopup] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('')
-  
-
-
-
-  /**
-   * ToDo: Check database for user email, if it exists, check if passowrds match, if they do LOGIN, if they don't PASSWORD ERROR, if the email
-   * does not exist, take user to confiermantion screen + make account
-   * @param event Submit event
-   */
-
 
     const generateRandomPassword = (length: number): string => {
       const chars:string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*'
@@ -77,7 +65,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
           const response = await handleLogin(email, password)
           if (response.data){
             setUserName(email)
-            setUserToken(response.data.token)
             setUserInfo(response.data.user)
             localStorage.setItem('token', response.data.token)
           } else {
@@ -99,14 +86,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
       },
       onError: (error) => console.log('Login Failed:', error)
     })
-    
-      const logOut = () => {
-        googleLogout()
-        setProfile({})
-        setUserName('')
-        setUserToken('')
-      }
-    
+       
       useEffect(()=>{
         if ((user as any).access_token) {
           axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${(user as any).access_token}`,{
@@ -122,9 +102,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
             async function fetchData(){
               try {
                 const response = await generateToken((res as any).data.email)
-                console.log(response)
                 //set userToken
-                setUserToken(response.token)
                 localStorage.setItem('token', response.token)
                 const signUpPassword = generateRandomPassword(10)
                 // attempt to sign up as a new user (nothing happens if user already exists)
@@ -139,7 +117,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ setUser, setProfile, user, pr
           .catch((err:object) => console.log(err))
         }
       },[ user ])
-
 
     return (
         <div className="landingPage">

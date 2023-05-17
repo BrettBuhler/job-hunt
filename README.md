@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+# Job Hunt
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Job Hunt frontend! This is the client-side component of the Job Hunt application, responsible for providing a user-friendly interface for job seekers to create professional cover letters effortlessly.
 
-## Available Scripts
+## Deployment & Demo
 
-In the project directory, you can run:
+Try the site: https://job-hunt-385520.uc.r.appspot.com/
 
-### `npm start`
+See the Demo: https://www.youtube.com/watch?v=5n1gPCFy8J8
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## About
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Job Hunt is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) application designed to assist job seekers in creating professional cover letters effortlessly. Leveraging the power of AI technology, the application generates customized cover letters within seconds.
 
-### `npm test`
+During the development of Job Hunt, my primary focus was to enhance my skills and gain a deeper understanding of the MVC (Model-View-Controller) design pattern. By adopting this architectural pattern, I aimed to achieve a clear separation of concerns between the data models, business logic, and user interface components. Learning how to integrate React and TypeScript was also a key project goal, as it allowed me to leverage the benefits of static typing and enhanced tooling for building robust applications.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To implement the MVC pattern, I structured the backend codebase using Express.js as the web framework. Express.js allowed me to define routes, handle API requests, and manage the flow of data between the models and views. MongoDB served as the NoSQL database for storing user profiles, cover letter templates, and generated cover letters, while Mongoose provided an elegant ODM (Object Data Modeling) solution for interacting with the MongoDB database.
 
-### `npm run build`
+In addition to mastering the MVC design pattern, I also sought to expand my knowledge of various technologies and tools. The integration of Google Cloud Platform enabled me to leverage cloud-based storage for file uploads and implement authentication/authorization using Google accounts. I incorporated JWT (JSON Web Tokens) for secure token-based authentication, ensuring the privacy and integrity of user sessions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Throughout the development process, I actively utilized AJAX (Asynchronous JavaScript and XML) to facilitate seamless communication between the client-side and server-side API endpoints. This asynchronous approach enabled smooth data retrieval and submission, providing a responsive user experience.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+By working on the Job Hunt application, I successfully strengthened my skills in building full-stack applications, deepened my understanding of the MVC design pattern, and gained hands-on experience with technologies such as Express.js, MongoDB, Mongoose, Google Cloud Platform, JWT, AJAX, React, and TypeScript. This project not only showcases my technical abilities but also demonstrates my commitment to continuous learning and growth as a software engineer.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies Used
 
-### `npm run eject`
+- **React**: JavaScript library for building user interfaces, used to create dynamic and interactive components for the frontend.
+- **Axios**: Promise-based HTTP client for making API requests from the frontend to the backend server.
+- **Open AI**: Integration with Open AI to leverage AI technology for generating customized cover letters.
+- **Google Auth Library**: Library for integrating Google account authentication into the application, enabling users to log in using their Google credentials.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript, providing static typing and enhanced tooling for building robust applications.
+- **Google Cloud Platform**: Integrated with the backend to leverage various services offered by the Google Cloud Platform, such as cloud-based storage for file uploads and authentication/authorization using Google accounts.
+- **MongoDB**: NoSQL database system used for storing user profiles, cover letter templates, and generated cover letters.
+- **Mongoose**: ODM (Object Data Modeling) library for MongoDB and Node.js, used for interacting with the MongoDB database, defining schemas, and performing database operations.
+- **Express.js**: Fast and minimalist web framework for Node.js, used to handle server-side logic, routing, and API endpoints.
+- **JSON Web Tokens (JWT)**: Token-based authentication mechanism used for securing API endpoints and managing user sessions.
+- **bcrypt**: Password hashing function used for securely storing and validating passwords.
+- **Postman**: API testing and development tool used for making requests to the backend API endpoints and verifying their functionality.
+- **CSS**: Cascading Style Sheets used for styling the frontend components and providing a visually appealing user interface.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+License
+This project is licensed under the MIT License.
